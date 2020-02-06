@@ -24,7 +24,7 @@
       
 */
 var reportHTML = "<h1>" + raceTitle + "</h1>";
-
+// showing total votes
 for(var i = 0; i < race.length; i++){
    var totalVotes = 0;
    votes[i].forEach(calcSum);
@@ -38,9 +38,10 @@ for(var i = 0; i < race.length; i++){
 
 document.getElementsByTagName("section")[0].innerHTML = reportHTML;
 
+// function for the vote number
 function candidateRows(raceNum, totalVotes) {
    var rowHTML = "";
-
+//making the vite count
    for(var j = 0; j < 3; j++){
       var candidateName = candidate[raceNum][j];
       var candidateParty = party[raceNum][j];
@@ -49,17 +50,30 @@ function candidateRows(raceNum, totalVotes) {
       rowHTML += "<tr>";
       rowHTML += "<td>" + candidateName + "(" + candidateParty +") </td>";
       rowHTML += "<td>" +  candidateVotes.toLocaleString()  + "(" +  candidatePercent.toFixed(1) + ") </td>";
-      rowHTML += "</tr>";
+      
+      // adding to bar graph to the table row
+      for(var k = 0; k < candidatePercent; k++){
+         rowHTML += createBar(candidateParty, candidatePercent);
+      }
+   rowHTML += "</tr>";
+      
 
    }
    return rowHTML;
 }
-
+// created a bar graph for the votes
 function createBar(partyType){
    var barHTML = "";
-    if(partyType = "D"){
-       barHTML += ""
+    if(partyType === "D"){
+       barHTML = "<td class='dem'></td>";
     }
+    if(partyType === "R"){
+      barHTML = "<td class='rep'></td>";
+    }
+    if(partyType === "I"){
+      barHTML = "<td class='ind'></td>";
+    }
+    return barHTML;
 }
 
 
